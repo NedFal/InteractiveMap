@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Italy City Index Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // 1. Create map centered on Italy
+  const map = L.map('map').setView([42.5, 12.5], 6);
+
+  // 2. Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // 3. Your cities (REPLACE THESE WITH YOUR DATA)
+  const cities = [
+    { name: "Milan", coords: [45.4642, 9.1900], index: 95 },
+    { name: "Rome", coords: [41.9028, 12.4964], index: 98 },
+    { name: "Naples", coords: [40.8518, 14.2681], index: 85 },
+    { name: "Turin", coords: [45.0703, 7.6869], index: 80 },
+    { name: "Florence", coords: [43.7696, 11.2558], index: 90 },
+    { name: "Bologna", coords: [44.4949, 11.3426], index: 88 },
+    { name: "Venice", coords: [45.4408, 12.3155], index: 92 },
+    { name: "Genoa", coords: [44.4056, 8.9463], index: 83 },
+    { name: "Verona", coords: [45.4384, 10.9916], index: 84 },
+    { name: "Bari", coords: [41.1171, 16.8719], index: 81 }
+  ];
+
+  // 4. Add markers
+  cities.forEach(city => {
+    L.marker(city.coords)
+      .addTo(map)
+      .bindPopup(`
+        <div class="popup-title">${city.name}</div>
+        <div>Index: <b>${city.index}</b></div>
+      `);
+  });
+</script>
+
+</body>
+</html>
