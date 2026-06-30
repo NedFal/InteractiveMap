@@ -5,7 +5,6 @@
   <title>Italy City Index Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -22,9 +21,25 @@
       width: 100%;
     }
 
+    .popup-container {
+      width: 320px;
+    }
+
     .popup-title {
       font-weight: bold;
+      font-size: 16px;
+      margin: 0 0 5px 0;
+    }
+
+    .popup-index {
       font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .popup-image {
+      width: 100%; 
+      border-radius: 6px;
+      display: block;
     }
   </style>
 </head>
@@ -33,7 +48,6 @@
 
 <div id="map"></div>
 
-<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -45,85 +59,88 @@
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // 3. Your cities (REPLACE THESE WITH YOUR DATA)
-  
+  // 3. Your cities data
+  // - Added 'index' key so it doesn't show up as undefined
+  // - Removed 'images/' from paths because your files are in the root folder
   const cities = [
-  {
-    name: "Bari",
-    coords: [41.1171, 16.8719],
-    image: "images/bari_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Bologna",
-    coords: [44.4949, 11.3426],
-    image: "images/bologna_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Florence",
-    coords: [43.7696, 11.2558],
-    image: "images/florence_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Genova",
-    coords: [44.4056, 8.9463],
-    image: "images/genova_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Milano",
-    coords: [45.4642, 9.1900],
-    image: "images/milano_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Naples",
-    coords: [40.8518, 14.2681],
-    image: "images/naples_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Palermo",
-    coords: [38.1157, 13.3615],
-    image: "images/palermo_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Rome",
-    coords: [41.9028, 12.4964],
-    image: "images/rome_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Turin",
-    coords: [45.0703, 7.6869],
-    image: "images/turin_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Venice",
-    coords: [45.4408, 12.3155],
-    image: "images/venice_idise_vs_resmix_2021_column.png"
-  },
-  {
-    name: "Verona",
-    coords: [45.4384, 10.9916],
-    image: "images/verona_idise_vs_resmix_2021_column.png"
-  }
-];
+    {
+      name: "Bari",
+      coords: [41.1171, 16.8719],
+      index: "2021", 
+      image: "bari_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Bologna",
+      coords: [44.4949, 11.3426],
+      index: "2021", 
+      image: "bologna_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Florence",
+      coords: [43.7696, 11.2558],
+      index: "2021",
+      image: "florence_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Genova",
+      coords: [44.4056, 8.9463],
+      index: "2021",
+      image: "genova_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Milano",
+      coords: [45.4642, 9.1900],
+      index: "2021",
+      image: "milano_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Naples",
+      coords: [40.8518, 14.2681],
+      index: "2021",
+      image: "naples_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Palermo",
+      coords: [38.1157, 13.3615],
+      index: "2021",
+      image: "palermo_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Rome",
+      coords: [41.9028, 12.4964],
+      index: "2021",
+      image: "rome_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Turin",
+      coords: [45.0703, 7.6869],
+      index: "2021",
+      image: "turin_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Venice",
+      coords: [45.4408, 12.3155],
+      index: "2021",
+      image: "venice_idise_vs_resmix_2021_column.png"
+    },
+    {
+      name: "Verona",
+      coords: [45.4384, 10.9916],
+      index: "2021",
+      image: "verona_idise_vs_resmix_2021_column.png"
+    }
+  ];
 
-cities.forEach(city => {
-  L.marker(city.coords)
-    .addTo(map)
-    .bindPopup(`
-      <div style="width:420px">
-        <h3>${city.name}</h3>
-        <img src="${city.image}"
-             style="width:100%; border-radius:8px;">
-      </div>
-    `);
-});
-
-  // 4. Add markers
+  // 4. Add markers to the map using a single loop
   cities.forEach(city => {
     L.marker(city.coords)
       .addTo(map)
       .bindPopup(`
-        <div class="popup-title">${city.name}</div>
-        <div>Index: <b>${city.index}</b></div>
+        <div class="popup-container">
+          <h3 class="popup-title">${city.name}</h3>
+          <div class="popup-index">Index: <b>${city.index}</b></div>
+          <img class="popup-image" src="${city.image}" alt="${city.name} chart">
+        </div>
       `);
   });
 </script>
