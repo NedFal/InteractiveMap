@@ -46,18 +46,76 @@
   }).addTo(map);
 
   // 3. Your cities (REPLACE THESE WITH YOUR DATA)
+  
   const cities = [
-    { name: "Milan", coords: [45.4642, 9.1900], index: 95 },
-    { name: "Rome", coords: [41.9028, 12.4964], index: 98 },
-    { name: "Naples", coords: [40.8518, 14.2681], index: 85 },
-    { name: "Turin", coords: [45.0703, 7.6869], index: 80 },
-    { name: "Florence", coords: [43.7696, 11.2558], index: 90 },
-    { name: "Bologna", coords: [44.4949, 11.3426], index: 88 },
-    { name: "Venice", coords: [45.4408, 12.3155], index: 92 },
-    { name: "Genoa", coords: [44.4056, 8.9463], index: 83 },
-    { name: "Verona", coords: [45.4384, 10.9916], index: 84 },
-    { name: "Bari", coords: [41.1171, 16.8719], index: 81 }
-  ];
+  {
+    name: "Bari",
+    coords: [41.1171, 16.8719],
+    image: "images/bari_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Bologna",
+    coords: [44.4949, 11.3426],
+    image: "images/bologna_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Florence",
+    coords: [43.7696, 11.2558],
+    image: "images/florence_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Genova",
+    coords: [44.4056, 8.9463],
+    image: "images/genova_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Milano",
+    coords: [45.4642, 9.1900],
+    image: "images/milano_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Naples",
+    coords: [40.8518, 14.2681],
+    image: "images/naples_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Palermo",
+    coords: [38.1157, 13.3615],
+    image: "images/palermo_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Rome",
+    coords: [41.9028, 12.4964],
+    image: "images/rome_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Turin",
+    coords: [45.0703, 7.6869],
+    image: "images/turin_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Venice",
+    coords: [45.4408, 12.3155],
+    image: "images/venice_idise_vs_resmix_2021_column.png"
+  },
+  {
+    name: "Verona",
+    coords: [45.4384, 10.9916],
+    image: "images/verona_idise_vs_resmix_2021_column.png"
+  }
+];
+
+cities.forEach(city => {
+  L.marker(city.coords)
+    .addTo(map)
+    .bindPopup(`
+      <div style="width:420px">
+        <h3>${city.name}</h3>
+        <img src="${city.image}"
+             style="width:100%; border-radius:8px;">
+      </div>
+    `);
+});
 
   // 4. Add markers
   cities.forEach(city => {
