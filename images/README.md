@@ -3,7 +3,7 @@
 Interactive web map visualizing the final course project for Applied Statistics at Politecnico di Milano.
 This was displayed in the final poster presentation of course projects.  
 
-
+<br> 
 
 **About the Project**
 
